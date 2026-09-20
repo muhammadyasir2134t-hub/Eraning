@@ -1,0 +1,7 @@
+# Netlify Redirects for WorkFirst
+
+# Proxy all /api calls to the backend server
+/api/*  https://ais-dev-5nzkpaledyax3iiyxzslxu-394997633999.asia-southeast1.run.app/api/:splat  200!
+
+# SPA Client-Side Routing fallback
+/*  /index.html  200

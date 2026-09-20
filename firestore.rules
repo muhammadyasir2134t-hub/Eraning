@@ -1,0 +1,43 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Public real-time payment proofs collection: anyone can read verified proofs, authenticated users can write
+    match /payment_proofs/{proofId} {
+      allow read: if true;
+      allow create: if isAuthenticated();
+      allow update, delete: if isAuthenticated() && (resource.data.userId == request.auth.uid || request.auth.token.admin == true);
+    }
+
+    // Live public platform payout ledger & statistics
+    match /public_payouts/{payoutId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    // User private wallets & transactions
+    match /users/{userId} {
+      allow read, write: if isOwner(userId);
+
+      match /wallet/{walletDoc} {
+        allow read, write: if isOwner(userId);
+      }
+
+      match /transactions/{txnId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      match /withdrawals/{wdId} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+  }
+}

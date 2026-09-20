@@ -1,0 +1,6 @@
+{
+  "name": "Earning Platform User Panel",
+  "description": "Professional, secure earning platform user portal featuring micro-tasks, verified earnings tracking, wallet management, withdrawal requests, and account controls.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://firebase.google.com/docs/firestore/blueprint-schema.json",
+  "entities": {
+    "payment_proofs": {
+      "description": "Real-time verified payout receipts, transaction references, payment slips, and verification stamps",
+      "fields": {
+        "userId": { "type": "string", "description": "User ID who received payout" },
+        "performerName": { "type": "string", "description": "Masked or full performer name" },
+        "city": { "type": "string", "description": "Performer city in Pakistan or region" },
+        "amount": { "type": "number", "description": "Disbursed payout amount in PKR" },
+        "currency": { "type": "string", "description": "Currency code e.g. PKR" },
+        "paymentMethod": { "type": "string", "description": "easypaisa, jazzcash, or bank_transfer" },
+        "accountTitle": { "type": "string", "description": "Recipient account title" },
+        "accountNumberMasked": { "type": "string", "description": "Masked telephone/IBAN" },
+        "trxId": { "type": "string", "description": "Real live gateway / telco transaction reference ID" },
+        "withdrawalNumber": { "type": "string", "description": "Internal withdrawal identifier" },
+        "status": { "type": "string", "description": "completed, verified, disbursed" },
+        "proofImageUrl": { "type": "string", "description": "Direct link or receipt screenshot data" },
+        "notes": { "type": "string", "description": "Verification notes or telco confirmation text" },
+        "createdAt": { "type": "timestamp", "description": "Timestamp when payout was recorded" }
+      }
+    },
+    "public_payouts": {
+      "description": "Live real-time feed of all completed withdrawals across the platform",
+      "fields": {
+        "amount": { "type": "number", "description": "Payout amount in PKR" },
+        "paymentMethod": { "type": "string", "description": "easypaisa, jazzcash, bank_transfer" },
+        "performer": { "type": "string", "description": "Display name of performer" },
+        "trxId": { "type": "string", "description": "Gateway reference ID" },
+        "timestamp": { "type": "timestamp", "description": "Disbursement timestamp" }
+      }
+    }
+  }
+}
